@@ -1,14 +1,13 @@
-from aiogram import types
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 
-def get_main_keybort():
-    kb = [
-        [types.KeyboardButton(text="АТАКА")],
+def get_main_keybort() -> ReplyKeyboardMarkup:
+    botton = [
+        [KeyboardButton(text="АТАКА")],
         [
-            types.KeyboardButton(text="Лесная"),
-            types.KeyboardButton(text="Горная"),
-            types.KeyboardButton(text="Водная"),
-        ]
+            KeyboardButton(text="Лесная"),
+            KeyboardButton(text="Горная"),
+            KeyboardButton(text="Водная"),
+        ],
     ]
-    keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
-    return keyboard
+    return ReplyKeyboardMarkup(keyboard=botton)

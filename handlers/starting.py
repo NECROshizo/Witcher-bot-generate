@@ -5,7 +5,7 @@ from keybords import get_main_keybort
 
 start_router = Router()
 
+
 @start_router.message(CommandStart())
 async def cmd_start(message: types.Message):
-
     await message.answer("Начнем играть!", reply_markup=get_main_keybort())

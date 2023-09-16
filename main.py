@@ -1,12 +1,10 @@
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher, types
-from aiogram.filters import CommandStart
+from aiogram import Bot, Dispatcher
 
-from settings import setting
 from handlers import start_router
-from keybords import get_main_keybort
+from settings import setting
 
 
 async def main():
@@ -16,6 +14,7 @@ async def main():
     dp.include_routers(start_router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
