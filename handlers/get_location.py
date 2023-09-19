@@ -1,14 +1,13 @@
 from aiogram import F, Router
 from aiogram.types import Message
 
-from servises.game_token import FOREST_LOCATION, MOUNTAIN_LOCATION, WATER_LOCATION
-from servises.utils import get_stiker
+from servises import FOREST_LOCATION, MOUNTAIN_LOCATION, WATER_LOCATION, get_stiker
 
 location_router = Router()
 
 
 @location_router.message(F.text == "Лесная")
-async def greet_alice(message: Message) -> None:
+async def forest(message: Message) -> None:
     await message.answer_sticker(get_stiker(FOREST_LOCATION))
 
 
