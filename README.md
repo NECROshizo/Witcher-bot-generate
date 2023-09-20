@@ -1,10 +1,52 @@
 # Witcher-bot-generate
+## Описание
+Проект представляет собой телеграм бота помошника для настольной игра в "Witcher old world"
 
-pip install aiogrampip
+**Функционал помошника:**
+* может выбирать случайныйжетон локации выбранного типа
+* выбирает случайную атаку чудовища
+***
+## Запуск
 
-python.exe -m pip install --upgrade pip
+#### Создание виртуального окружения:
 
-pip install pre-commit
+```
+python -m venv venv
+```
 
-pip install pydantic
-pip install pydantic_settings
+#### Запуск виртуального окружения:
+
+```bash
+source venv/Scripts/activate - команда для Windows
+source venv/bin/activate - команда для Linux и macOS
+```
+#### Установка зависимостей:
+
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+#### Настройка параметров допуска оуружения
+```bash
+touch .env
+```
+Заполнить необходимые переменными окружения по [образцу](.env.example)
+Получения телеграмм токена [BotFather](https://t.me/botfather)
+
+#### Запуск
+```bash
+python main.py
+```
+Локальные настройки работы телеграмм бота находятся в [setting.py](setting.py)
+
+#### Запуск через Docker
+```bash
+docker build -t witcher-bot .
+```
+***
+## Для чего
+Слишком надоело возвращать назад и замешивать пару жетонов. Да и подбрасывать 5 конечный кортонный жетон такое себе, могли бы и монетку сделать)
+
+## Автор
+[**Оганин Пётр**](https://github.com/NECROshizo)
+2023 г.

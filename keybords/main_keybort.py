@@ -10,4 +10,6 @@ def get_main_keybort() -> ReplyKeyboardMarkup:
             KeyboardButton(text="Водная"),
         ],
     ]
-    return ReplyKeyboardMarkup(keyboard=botton)
+    return ReplyKeyboardMarkup(
+        keyboard=botton,
+    )
