@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+
+  app:
+    image: ghcr.io/necroshizo/Witcher-tokken-generate-bot:latest
+    container_name: token-generate-bot
+    restart: always
+    env_file:
+      - ../infra/.env

@@ -16,7 +16,7 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v2
 
-        - name: Set up Python
+        - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v2
           with:
             python-version: ${{ matrix.python-version }}
@@ -29,11 +29,6 @@ jobs:
 
         - name: Configure Linters
           run: echo "Configuring Linters" && cp setup.cfg $HOME/setup.cfg
-
-        - name: Run pyright
-          uses: jakebailey/pyright-action@v1
-          with:
-            version: 1.1.311
 
         - name: Run linters
           run: |

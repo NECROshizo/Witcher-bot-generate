@@ -35,7 +35,7 @@ touch .env
 
 #### Запуск
 ```bash
-python main.py
+python src/main.py
 ```
 Локальные настройки работы телеграмм бота находятся в [setting.py](setting.py)
 

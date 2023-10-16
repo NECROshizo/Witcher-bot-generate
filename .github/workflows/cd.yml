@@ -1,0 +1,115 @@
+name: Deploy Docker compose
+
+on:
+  push:
+  pull_request:
+    branches:
+      - develop
+    types: [ closed ]
+
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  check_merge:
+    name: Closed but was NOT merged
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Log Merge
+        run: |
+          echo "Pull request was NOT merged."
+          exit 1
+
+  images-build-and-push:
+    name: Build and push Docker images to GitHub packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=raw,value=stage
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: "{{ defaultContext }}"
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+#   deploy:
+#     name: Deploy
+#     runs-on: ubuntu-latest
+#     needs: images-build-and-push
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Copying files to the server
+#         uses: appleboy/scp-action@master
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           key: ${{ secrets.SSH_KEY }}
+#           passphrase: ${{ secrets.SSH_PASSPHRASE }}
+#           port: ${{ secrets.SSH_PORT }}
+#           source: infra/docker-compose.yml
+#           target: ${{ secrets.DEPLOY_PATH }}
+#           overwrite: true
+
+#       - name: Create .env file
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           key: ${{ secrets.SSH_KEY }}
+#           passphrase: ${{ secrets.SSH_PASSPHRASE }}
+#           port: ${{ secrets.SSH_PORT }}
+#           script: |
+#               cd ${{ secrets.DEPLOY_PATH }}/infra
+#               echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
+
+
+#   start_application:
+#     name: Start application
+#     runs-on: ubuntu-latest
+#     needs: deploy
+#     steps:
+#       - name: Run docker compose
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           key: ${{ secrets.SSH_KEY }}
+#           passphrase: ${{ secrets.SSH_PASSPHRASE }}
+#           port: ${{ secrets.SSH_PORT }}
+#           script: |
+#             cd ${{ secrets.DEPLOY_PATH }}/infra
+#             docker image prune -f
+#             docker compose up -d
