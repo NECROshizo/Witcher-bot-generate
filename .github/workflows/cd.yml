@@ -14,17 +14,17 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  check_merge:
-    name: Closed but was NOT merged
-    if: github.event.pull_request.merged == false
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Log Merge
-        run: |
-          echo "Pull request was NOT merged."
-          exit 1
+  # check_merge:
+  #   name: Closed but was NOT merged
+  #   if: github.event.pull_request.merged == false
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #     - name: Log Merge
+  #       run: |
+  #         echo "Pull request was NOT merged."
+  #         exit 1
 
   images-build-and-push:
     name: Build and push Docker images to GitHub packages
