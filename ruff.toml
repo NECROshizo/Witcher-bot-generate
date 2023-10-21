@@ -1,0 +1,3 @@
+ignore = ["D"]
+exclude = ["__init__.py"]
+line-length = 120
