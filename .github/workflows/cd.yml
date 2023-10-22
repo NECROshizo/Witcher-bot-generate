@@ -66,7 +66,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           # passphrase: ${{ secrets.PASSPHRASE }}
           source: infra/docker-compose.yml
-          target: ${{ secrets.DEPLOY_PATH }}
+          # target: ${{ secrets.DEPLOY_PATH }}
+          target: witcher
           overwrite: true
 
       - name: Create .env file
@@ -94,6 +95,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           # passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            cd ${{ secrets.DEPLOY_PATH }}/infra
+            cd witcher/infra
             docker image prune -f
             docker compose up -d
