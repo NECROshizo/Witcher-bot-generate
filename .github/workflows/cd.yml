@@ -63,8 +63,9 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
+          password: ${{ secrets.PASSWORD }}
+          # key: ${{ secrets.SSH_KEY }}
+          # passphrase: ${{ secrets.PASSPHRASE }}
           source: infra/docker-compose.yml
           target: ${{ secrets.DEPLOY_PATH }}
           # target: witcher
@@ -75,8 +76,9 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
+          password: ${{ secrets.PASSWORD }}
+          # key: ${{ secrets.SSH_KEY }}
+          # passphrase: ${{ secrets.PASSPHRASE }}
           script: |
               cd ${{ secrets.DEPLOY_PATH }}/infra
               echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
@@ -92,7 +94,8 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.PASSWORD }}
+          # key: ${{ secrets.SSH_KEY }}
           # passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             cd ${{ secrets.DEPLOY_PATH }}/infra
