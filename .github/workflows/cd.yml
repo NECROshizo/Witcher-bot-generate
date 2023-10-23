@@ -99,5 +99,6 @@ jobs:
           # passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             cd ${{ secrets.DEPLOY_PATH }}/infra
-            docker image prune -f
-            docker compose up -d
+            docker compose stop
+            docker compose rm -f
+            docker compose up -d --quiet-pull
