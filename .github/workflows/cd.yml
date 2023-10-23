@@ -81,6 +81,7 @@ jobs:
           # passphrase: ${{ secrets.PASSPHRASE }}
           script: |
               cd ${{ secrets.DEPLOY_PATH }}/infra
+              touch .env
               echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
 
 
