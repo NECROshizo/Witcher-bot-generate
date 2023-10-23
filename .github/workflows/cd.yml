@@ -101,4 +101,5 @@ jobs:
             cd ${{ secrets.DEPLOY_PATH }}/infra
             docker compose stop
             docker compose rm -f
+            docker rmi $(docker images -qa)
             docker compose up -d --quiet-pull
