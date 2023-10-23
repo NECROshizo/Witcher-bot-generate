@@ -7,9 +7,9 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
-COPY ./src /app/src
+COPY ./src /app
 
 RUN pip install --upgrade pip &&\
     pip install --no-cache-dir --upgrade -r requirements.txt
 
-CMD ["python", "-m", "src.main"]
+CMD ["python", "-m", "main"]
